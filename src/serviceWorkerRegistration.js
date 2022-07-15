@@ -72,6 +72,16 @@ function registerValidSW(swUrl, config) {
                   'tabs for this page are closed. See https://cra.link/PWA.'
               );
 
+              registration.pushManager.subscribe({
+                userVisibleOnly: true,
+                applicationServerKey: "" // 서버측 키 필요
+              }).then((subscription) => {
+                const pwaSubscription = JSON.parse(JSON.stringify(subscription))
+                console.log(pwaSubscription)
+              }).catch((e) => 
+                console.log("subscribe error", e));
+              Notification.requestPermission();
+
               // Execute callback
               if (config && config.onUpdate) {
                 config.onUpdate(registration);
